@@ -21,7 +21,13 @@ app.use(helmet());
 
 // CORS configuration
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:5173', 'http://localhost:4173'],
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://localhost:5173',
+    'http://localhost:4173',
+    'https://client-bdw0pfcbo-ryan-whites-projects-00f6d981.vercel.app'
+  ],
   credentials: true
 }));
 
