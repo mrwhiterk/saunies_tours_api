@@ -1,16 +1,12 @@
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config();
 
-// Your MongoDB Atlas connection string
-const atlasConnectionString = 'mongodb+srv://admin:pa$$word@cluster0.uyfdcq4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+// This script helps you set up your MongoDB Atlas connection string in the .env file.
+// Please manually set your MongoDB URI in the .env file as MONGODB_URI.
+// Example:
+// MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/saunie_tours?retryWrites=true&w=majority&appName=Cluster0
 
-// URL encode the password ($$ becomes %24%24)
-const encodedConnectionString = atlasConnectionString.replace('pa$$word', 'pa%24%24word');
-
-// Add the database name (using underscore instead of slash)
-const finalConnectionString = encodedConnectionString.replace('?retryWrites=true&w=majority&appName=Cluster0', '/saunie_tours?retryWrites=true&w=majority&appName=Cluster0');
-
-// Read the current .env file
 const envPath = path.join(__dirname, '.env');
 let envContent = '';
 
@@ -20,14 +16,19 @@ try {
   console.log('No existing .env file found, creating new one...');
 }
 
+if (!process.env.MONGODB_URI) {
+  console.log('Please set your MongoDB connection string in the .env file as MONGODB_URI.');
+  process.exit(1);
+}
+
 // Update the MongoDB URI in the .env content
 const updatedEnvContent = envContent.replace(
   /MONGODB_URI=.*/,
-  `MONGODB_URI=${finalConnectionString}`
+  `MONGODB_URI=${process.env.MONGODB_URI}`
 );
 
-// Write the updated .env file
 fs.writeFileSync(envPath, updatedEnvContent);
+console.log('Updated .env with your MongoDB URI.');
 
 console.log('✅ MongoDB Atlas connection string updated successfully!');
 console.log('');
