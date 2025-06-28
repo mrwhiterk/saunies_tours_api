@@ -28,7 +28,6 @@ console.log('Updated .env with fixed MongoDB URI.');
 console.log('✅ Fixed MongoDB Atlas connection string!');
 console.log('');
 console.log('Updated connection string:');
-console.log('mongodb+srv://admin:pa%24%24word@cluster0.uyfdcq4.mongodb.net/saunie_tours?retryWrites=true&w=majority&appName=Cluster0');
 console.log('');
 console.log('Now you can:');
 console.log('1. Restart the API server');
